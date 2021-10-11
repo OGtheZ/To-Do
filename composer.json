@@ -3,7 +3,9 @@
         "nikic/fast-route": "^1.3",
         "ramsey/uuid": "^4.2",
         "league/csv": "^9.7",
-        "nesbot/carbon": "^2.53"
+        "nesbot/carbon": "^2.53",
+      "ext-pdo": "*",
+        "ext-json": "*"
     } ,
     "autoload": {
         "psr-4": {
