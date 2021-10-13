@@ -50,15 +50,15 @@ class TasksController
             $this->tasksRepository->delete($task);
         }
 
-        header("Location: /");
+        header("Location: /tasks");
     }
     public function show(array $vars)
     {
         $id = $vars['id'] ?? null;
-        if ($id == null) header("Location: /");
+        if ($id == null) header("Location: /tasks");
 
         $task = $this->tasksRepository->getOne($id);
-        if($task === null) header("Location: /");
+        if($task === null) header("Location: /tasks");
 
         require_once "app/Views/tasks/show.template.php";
     }

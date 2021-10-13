@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\Collections\UsersCollection;
 use App\Models\User;
 use PDO;
 use PDOException;
@@ -33,16 +32,11 @@ class MysqlUsersRepository implements UsersRepository
         ]);
     }
 
-    public function login()
+    public function getOneByName()
     {
-        $sql = "SELECT * FROM users WHERE name = ? AND password = ?";
+        $sql = "SELECT * FROM users WHERE name = ?";
         $statement = $this->connection->prepare($sql);
-        $statement->execute([$_POST["userName"], $_POST["password"]]);
-        return $statement->fetch();
-    }
-
-    public function getAll(): UsersCollection
-    {
-        // TODO: Implement getAll() method.
+        $statement->execute([$_POST["userName"]]);
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 }

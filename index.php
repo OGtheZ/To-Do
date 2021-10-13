@@ -2,6 +2,8 @@
 
 require_once "vendor/autoload.php";
 
+session_start();
+
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/tasks', 'App\Controllers\TasksController@index');
     $r->addRoute('GET', '/tasks/create', 'App\Controllers\TasksController@create');
@@ -13,7 +15,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/register', 'App\Controllers\UsersController@register');
     $r->addRoute('POST', '/', 'App\Controllers\UsersController@store');
     $r->addRoute('POST', '/home', 'App\Controllers\UsersController@login');
-    $r->addRoute('GET', '/home/menu', 'App\Controllers\UsersController@home');
+    $r->addRoute('POST', '/logout', 'App\Controllers\UsersController@logout');
 });
 
 function basePath(): string

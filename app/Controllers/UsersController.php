@@ -30,26 +30,32 @@ class UsersController
     {
         if ($_POST['userName'] !== "" || $_POST['password'] !== "")
         {
-            $user = new User(Uuid::uuid4(), $_POST['userName'], $_POST['password']);
+            $user = new User(Uuid::uuid4(), $_POST['userName'], password_hash($_POST['password'], PASSWORD_DEFAULT));
             $this->userRepository->save($user);
             header("Location: /");
-        }
+        } else {header("Location: /");}
     }
 
     public function login()
     {
         if ($_POST['userName'] === "" || $_POST["password"] === "") header("Location: /");
+        $userData  = $this->userRepository->getOneByName();
 
-        if($this->userRepository->login() === false){
-            header("Location : /");
+        if($userData == false){
+            header("Location: /");
         } else {
-            var_dump("did i get here?");
-            header("Location : /home/menu");
+            if(password_verify($_POST["password"], $userData["password"])) {
+                $_SESSION["id"] = $userData["id"];
+                header("Location: /tasks");
+            } else {header("Location: /");
+            }
         }
     }
 
-    public function home()
+
+    public function logout()
     {
-        require_once "app/Views/users/home.template.php";
+        unset($_SESSION['id']);
+        header("Location: /");
     }
 }

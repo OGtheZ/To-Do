@@ -2,8 +2,15 @@
 require_once 'app/Views/partials/header.template.php';
 ?>
 <body>
-<a href="/tasks/create">Create</a>
-<h3>Tasks</h3>
+<form action="/logout" method="post">
+    <input type="submit" name="logout" value="Logout">
+</form>
+<br>
+<form action="/tasks/create" method="get">
+    <input type="submit" name="create" value="Create">
+</form>
+<br>
+<h3>Your tasks:</h3>
 <ul>
     <?php foreach($tasks->getTasks() as $task): ?>
         <li>
@@ -11,7 +18,7 @@ require_once 'app/Views/partials/header.template.php';
                 <?php echo $task->getTitle(); ?>
             </a>
             <small>
-                (<?php echo $task->getCreatedAt(); ?>)
+                (<?php echo "Created at: " . $task->getCreatedAt(); ?>)
             </small>
 
         </li>

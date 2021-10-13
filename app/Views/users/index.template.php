@@ -1,13 +1,14 @@
 <?php require_once "app/Views/partials/header.template.php"; ?>
 
 <body>
+<h2>Welcome to the Tasks app!</h2>
 <div class="login">
 <form action="/home" method="POST">
     <label for="userName">Username:</label>
     <input type="text" name="userName" id="userName"><br><br>
     <label for="password">Password:</label>
     <input type="password" name="password" id="password"><br><br>
-    <button type="submit">Login</button>
+    <input type="submit" value="Login" name="login">
 </form>
 (<a href="/register">Register</a>)
 </div>

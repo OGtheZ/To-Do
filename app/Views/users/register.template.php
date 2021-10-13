@@ -5,6 +5,8 @@
     <input type="text" name="userName" id="userName"><br>
     <label for="password">New password:</label>
     <input type="password" name="password" id="password"><br>
+    <label for="password-confirm">Confirm password:</label>
+    <input type="password" name="password-confirm" id="password-confirm"><br>
     <button type="submit">Register</button>
 </form>
 <a href="/">Back</a>
