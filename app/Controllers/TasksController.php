@@ -13,12 +13,9 @@ use Twig\Environment;
 class TasksController
 {
     private TasksRepository $tasksRepository;
-    private Environment $twig;
     public function __construct()
     {
         $this->tasksRepository = new MysqlTasksRepository();
-        $loader = new \Twig\Loader\FilesystemLoader('app/Views');
-        $this->twig = new \Twig\Environment($loader, []);
     }
 
     public function index(): View
