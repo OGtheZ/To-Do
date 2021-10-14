@@ -17,12 +17,12 @@ class UsersController
         $this->userRepository = new MysqlUsersRepository();
     }
 
-    public function index()
+    public function index(): View
     {
         return new View("/users/index.twig", []);
     }
 
-    public function register()
+    public function register(): View
     {
         return new View("/users/register.twig", []);
     }

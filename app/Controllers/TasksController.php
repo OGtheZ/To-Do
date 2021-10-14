@@ -27,7 +27,7 @@ class TasksController
         ]);
     }
 
-    public function create()
+    public function create(): View
     {
         return new View('/tasks/createTask.twig', []);
     }
@@ -56,7 +56,7 @@ class TasksController
 
         header("Location: /tasks");
     }
-    public function show(array $vars)
+    public function show(array $vars): View
     {
         $id = $vars['id'] ?? null;
         if ($id == null) header("Location: /tasks");
