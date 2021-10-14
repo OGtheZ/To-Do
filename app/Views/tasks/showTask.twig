@@ -1,0 +1,11 @@
+{% extends "partials/app.twig" %}
+{% block content %}
+<body>
+(<a href="/tasks">Back</a>)
+<h3>{{ task.getTitle }}</h3>
+<h6>{{ task.getCreatedAt }}</h6>
+<form method="post" action="/tasks/{{ task.getId }}">
+    <input type="submit" value="Delete" onclick="return confirm('Are you sure?')">
+</form>
+</body>
+{% endblock %}

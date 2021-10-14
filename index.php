@@ -1,5 +1,7 @@
 <?php
 
+use App\View;
+
 require_once "vendor/autoload.php";
 
 session_start();
@@ -22,6 +24,9 @@ function basePath(): string
 {
     return __DIR__;
 }
+
+$loader = new \Twig\Loader\FilesystemLoader('app/Views');
+$templateLoader = new \Twig\Environment($loader, []);
 
 // Fetch method and URI from somewhere
 $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -47,6 +52,11 @@ switch ($routeInfo[0]) {
         $vars = $routeInfo[2];
         [$controller, $method] = explode("@", $handler);
         $controller = new $controller;
-        $controller->$method($vars);
+        $response = $controller->$method($vars);
+
+        if ($response instanceof View)
+        {
+            echo $templateLoader->render($response->getTemplate(), $response->getVariables());
+        }
         break;
 }

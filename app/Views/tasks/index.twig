@@ -1,6 +1,5 @@
-<?php
-require_once 'app/Views/partials/header.template.php';
-?>
+{% extends "/partials/app.twig" %}
+{% block content %}
 <body>
 <form action="/logout" method="post">
     <input type="submit" name="logout" value="Logout">
@@ -12,17 +11,16 @@ require_once 'app/Views/partials/header.template.php';
 <br>
 <h3>Your tasks:</h3>
 <ul>
-    <?php foreach($tasks->getTasks() as $task): ?>
+    {% for task in tasks.getTasks %}
         <li>
-            <a href="/tasks/<?php echo $task->getId()?>">
-                <?php echo $task->getTitle(); ?>
+            <a href="/tasks/{{ task.getId }}">
+                {{ task.title }}
             </a>
             <small>
-                (<?php echo "Created at: " . $task->getCreatedAt(); ?>)
+                ({{ task.createdAt }})
             </small>
-
         </li>
-    <?php endforeach; ?>
+    {% endfor %}
 </ul>
 </body>
-</html>
+{% endblock %}

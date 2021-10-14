@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\User;
 use App\Repositories\MysqlUsersRepository;
 use App\Repositories\UsersRepository;
+use App\View;
 use Ramsey\Uuid\Uuid;
 
 class UsersController
@@ -18,22 +19,29 @@ class UsersController
 
     public function index()
     {
-        require_once "app/Views/users/index.template.php";
+        return new View("/users/index.twig", []);
     }
 
     public function register()
     {
-        require_once "app/Views/users/register.template.php";
+        return new View("/users/register.twig", []);
     }
 
     public function store()
     {
-        if ($_POST['userName'] !== "" || $_POST['password'] !== "")
+        if($_POST['password'] !== $_POST["password-confirm"] || $_POST['userName'] === "" || $_POST['password'] === "")
         {
-            $user = new User(Uuid::uuid4(), $_POST['userName'], password_hash($_POST['password'], PASSWORD_DEFAULT));
+            header("Location: /register");
+        }
+        else
+        {
+            $user = new User(Uuid::uuid4(),
+                $_POST['userName'],
+                password_hash($_POST['password'], PASSWORD_DEFAULT));
+
             $this->userRepository->save($user);
             header("Location: /");
-        } else {header("Location: /");}
+        }
     }
 
     public function login()

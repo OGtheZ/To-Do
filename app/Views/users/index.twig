@@ -1,5 +1,5 @@
-<?php require_once "app/Views/partials/header.template.php"; ?>
-
+{% extends "partials/app.twig" %}
+{% block content %}
 <body>
 <h2>Welcome to the Tasks app!</h2>
 <div class="login">
@@ -13,4 +13,4 @@
 (<a href="/register">Register</a>)
 </div>
 </body>
-</html>
+{% endblock %}

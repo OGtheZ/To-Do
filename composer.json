@@ -5,7 +5,8 @@
         "league/csv": "^9.7",
         "nesbot/carbon": "^2.53",
       "ext-pdo": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "twig/twig": "^3.0"
     } ,
     "autoload": {
         "psr-4": {

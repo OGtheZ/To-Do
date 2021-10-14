@@ -6,26 +6,33 @@ use App\Models\Task;
 use App\Repositories\CsvTasksRepository;
 use App\Repositories\MysqlTasksRepository;
 use App\Repositories\TasksRepository;
+use App\View;
 use Ramsey\Uuid\Uuid;
+use Twig\Environment;
 
 class TasksController
 {
     private TasksRepository $tasksRepository;
-
+    private Environment $twig;
     public function __construct()
     {
         $this->tasksRepository = new MysqlTasksRepository();
+        $loader = new \Twig\Loader\FilesystemLoader('app/Views');
+        $this->twig = new \Twig\Environment($loader, []);
     }
 
-    public function index()
+    public function index(): View
     {
         $tasks = $this->tasksRepository->getAll($_GET);
-        require_once 'app/Views/tasks/index.template.php';
+
+        return new View('/tasks/index.twig', [
+            'tasks' => $tasks
+        ]);
     }
 
     public function create()
     {
-        require_once 'app/Views/tasks/create.template.php';
+        return new View('/tasks/createTask.twig', []);
     }
 
     public function store()
@@ -60,6 +67,6 @@ class TasksController
         $task = $this->tasksRepository->getOne($id);
         if($task === null) header("Location: /tasks");
 
-        require_once "app/Views/tasks/show.template.php";
+        return new View('/tasks/showTask.twig', ["task" => $task]);
     }
 }
